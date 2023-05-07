@@ -19,7 +19,7 @@ component {
 			appName                  : getSystemSetting( "APPNAME", "Your app name here" ),
 			eventName                : "event",
 			// Development Settings
-			reinitPassword           : "",
+			reinitPassword           : "fwreinit",
 			reinitKey                : "fwreinit",
 			handlersIndexAutoReload  : true,
 			// Implicit Events
