@@ -1,0 +1,9 @@
+{
+    "name":"medicalapp",
+    "web":{
+        "host":"medicalapp.com",
+        "rewrites":{
+            "enable":"true"
+        }
+    }
+}

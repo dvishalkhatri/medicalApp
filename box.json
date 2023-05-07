@@ -1,0 +1,13 @@
+{
+    "dependencies":{
+        "coldbox":"^6.8.2+6"
+    },
+    "installPaths":{
+        "coldbox":"coldbox/"
+    },
+    "location":"",
+    "name":"medicalapp",
+    "scripts":{},
+    "slug":"medicalapp",
+    "version":"1.0.0"
+}
