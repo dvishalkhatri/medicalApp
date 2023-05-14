@@ -10,27 +10,39 @@
                 <h1 class="auth-title">Sign Up</h1>
                 <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
 
-                <form action="index.html">
+                <form action="#event.buildLink("login.signUp")#" method="POST" id="signUpForm">
+                    <input type="hidden" name="txtUserId" value="0">
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="text" class="form-control form-control-xl" placeholder="Email">
+                        <input type="text" name="txtEmail" class="form-control form-control-xl" placeholder="Email">
                         <div class="form-control-icon">
                             <i class="bi bi-envelope"></i>
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="text" class="form-control form-control-xl" placeholder="Username">
+                        <input type="text" name="txtFirstname" class="form-control form-control-xl" placeholder="First Name">
                         <div class="form-control-icon">
                             <i class="bi bi-person"></i>
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="password" class="form-control form-control-xl" placeholder="Password">
+                        <input type="text" name="txtLastname" class="form-control form-control-xl" placeholder="Last Name">
+                        <div class="form-control-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                    </div>
+                    <div class="form-group position-relative has-icon-both mb-4">
+                        <input type="password" name="txtPassword" id="psw-input" class="form-control form-control-xl" placeholder="Password">
                         <div class="form-control-icon">
                             <i class="bi bi-shield-lock"></i>
                         </div>
+                        <div class="form-control-icon-right">
+                            <i class="bi bi-eye"></i>
+                        </div>
+                        <div id="pswmeter" class="mt-3 d-none"></div>
+                        <div id="pswmeter-message" class="mt-3 d-none"></div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="password" class="form-control form-control-xl" placeholder="Confirm Password">
+                        <input type="password" name="txtConfirmPassword" class="form-control form-control-xl" placeholder="Confirm Password">
                         <div class="form-control-icon">
                             <i class="bi bi-shield-lock"></i>
                         </div>

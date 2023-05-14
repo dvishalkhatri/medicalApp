@@ -1,8 +1,14 @@
 {
     "dependencies":{
+        "BCrypt":"^3.1.0+4",
+        "cbmessagebox":"^4.0.0+58",
+        "cbstorages":"^3.0.1-snapshot",
         "coldbox":"^6.8.2+6"
     },
     "installPaths":{
+        "BCrypt":"modules/BCrypt/",
+        "cbmessagebox":"modules/cbmessagebox/",
+        "cbstorages":"modules/cbstorages/",
         "coldbox":"coldbox/"
     },
     "location":"",

@@ -20,7 +20,6 @@ component {
 	this.secureJSON           = false;
 	this.timezone             = "UTC";
 	this.whiteSpaceManagement = "smart";
-	this.datasource			  = "medicalapp";
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -67,7 +66,7 @@ component {
 	 * ORM + Datasource Settings
 	 * --------------------------------------------------------------------------
 	 */
-	this.datasource = "coldbox";
+	this.datasource = "medicalapp";
 
 	/**
 	 * Fires when the application starts
