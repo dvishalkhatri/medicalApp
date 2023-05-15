@@ -52,7 +52,6 @@ component extends="baseService" {
 		var loc.result = loc.q.execute().getPrefix();
 
 		if (loc.result.recordCount EQ 1) {
-			SessionStorage.createStorage();
 			sessionStorage.set("userId", loc.result.generatedkey);
 			sessionStorage.set("username", arguments.formData.txtEmail);
 			sessionStorage.set("firstname", arguments.formData.txtFirstname);
@@ -62,4 +61,16 @@ component extends="baseService" {
 		return loc.result;
 	}
 
+	
+	/**
+	 * checkLogin
+	 */
+	public query function checkLogin( required struct formData ){
+		writeDump(arguments);abort;
+		var loc = {};
+		loc.q   = new query();
+
+		
+	}
+	
 }

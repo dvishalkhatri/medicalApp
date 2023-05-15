@@ -29,27 +29,5 @@
                 #renderView()#
             </div>
         </body>
-        <script>
-            const myPassMeter = passwordStrengthMeter({
-                containerElement: '##pswmeter',
-                passwordInput: '##psw-input',
-                showMessage: true,
-                messageContainer: '##pswmeter-message',
-                messagesList: [
-                    'Write your password...',
-                    'Easy peasy!',
-                    'That is a simple one',
-                    'That is better',
-                    'Yeah! that password rocks ;)'
-                ],
-                height: 6,
-                borderRadius: 0,
-                pswMinLength: 8,
-                colorScore1: '##ff8a8a',
-                colorScore2: '##fffd98',
-                colorScore3: '##ffb958',
-                colorScore4: 'limegreen'
-            });
-        </script>
     </html>
 </cfoutput>

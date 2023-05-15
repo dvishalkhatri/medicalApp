@@ -1,20 +1,34 @@
 /**
  * I am a new handler
  */
-component extends="base" {
+component {
+
+	property name="sessionStorage" inject="sessionStorage@cbstorages";
+	property name="loginService" inject="loginService";
 
 	/**
 	 * index
 	 */
 	function index( event, rc, prc ){
-		event.setView( view = "login/index", layout = "login" );
+		if (sessionStorage.exists( "userId" )) {
+			relocate("home/index");
+		} else {
+			event.setView( "login/index" ).setLayout( "login" );
+		}
 	}
 
 	/**
 	 * doLogin
 	 */
 	function doLogin( event, rc, prc ){
-		event.setView( "login/doLogin" );
+		var formData = event.getExcept( "event,fieldnames" );
+		if (sessionStorage.exists( "userId" )) {
+			relocate('home.index');
+		} else if (structKeyExists(formData, "email") AND len(trim(formData.email)) GT 0) {
+			var prc.checkLogin = loginService.checkLogin(formData);
+		} else {
+			event.setView( "login/doLogin" );
+		}
 	}
 
 	/**
@@ -22,11 +36,15 @@ component extends="base" {
 	 */
 	function signUp( event, rc, prc ){
 		var formData = event.getExcept( "event,fieldnames" );
-		if (structKeyExists(formData, "txtUserId") AND formData.txtUserId EQ 0) {
+		if (sessionStorage.exists( "userId" )) {
+			relocate('home.index');
+		} else if (structKeyExists(formData, "txtUserId") AND formData.txtUserId EQ 0) {
 			prc.register = loginService.register( formData );
-			writeDump(prc.register);abort;
+			if (prc.register.recordCount EQ 1) {
+				relocate('home/index');
+			}
 		} else {
-			event.setView( view = "login/signUp", layout = "login" );
+			event.setView( "login/signUp" ).setLayout( "login" );
 		}
 	}
 
@@ -34,7 +52,7 @@ component extends="base" {
 	 * forgot
 	 */
 	function forgot( event, rc, prc ){
-		event.setView( view = "login/forgot", layout = "login" );
+		event.setView( "login/forgot" ).setLayout( "login" );
 	}
 
 	
@@ -42,7 +60,10 @@ component extends="base" {
 	 * logout
 	 */
 	function logout( event, rc, prc ){
-
+		if (sessionStorage.exists( "userId" )) {
+			sessionStorage.clearAll();
+			relocate('login/index');
+		}
 	}
 	
 

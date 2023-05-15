@@ -8,17 +8,20 @@
                 <h1 class="auth-title">Log in.</h1>
                 <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
 
-                <form action="index.html">
+                <form action="#event.buildLink("login.doLogin")#" method="POST" id="loginForm">
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="text" class="form-control form-control-xl" placeholder="Username">
+                        <input type="text" name="email" class="form-control form-control-xl" placeholder="Email">
                         <div class="form-control-icon">
                             <i class="bi bi-person"></i>
                         </div>
                     </div>
-                    <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="password" class="form-control form-control-xl" placeholder="Password">
+                    <div class="form-group position-relative has-icon-both mb-4">
+                        <input type="password" name="password" class="form-control form-control-xl" placeholder="Password">
                         <div class="form-control-icon">
                             <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <div class="form-control-icon-right">
+                            <i class="bi bi-eye"></i>
                         </div>
                     </div>
                     <div class="form-check form-check-lg d-flex align-items-end">

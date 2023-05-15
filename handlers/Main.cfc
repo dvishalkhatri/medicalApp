@@ -1,11 +1,16 @@
 component extends="coldbox.system.EventHandler" {
 
+	property name="sessionStorage" inject="sessionStorage@cbstorages";
 	/**
 	 * Default Action
 	 */
 	function index( event, rc, prc ){
-		prc.welcomeMessage = "Welcome to ColdBox!";
-		event.setView( "main/index" );
+		if (NOT sessionStorage.exists( "userId" )) {
+			relocate('home.index');
+		} else {
+			prc.welcomeMessage = "Welcome to ColdBox!";
+			event.setView( "main/index" );
+		}
 	}
 
 	/**

@@ -7,15 +7,14 @@ component {
 	property name="sessionStorage" inject="sessionStorage@cbstorages";
 
 	function preHandler( event, rc, prc, action, eventArguments ){
-		/* writeDump(sessionStorage.get("userId"));
-		writeDump(sessionStorage.exists("username"));
-		writeDump(sessionStorage.getStorage()); */
-		/* sessionStorage.removeStorage();
-		writeDump(sessionStorage.getStorage()); */
-		if (sessionStorage.get("userId") GT 0) {
-			relocate(event="main.index");
+		if (sessionStorage.exists( "userId" )) {
+			prc['userId'] = sessionStorage.get( "userId" );
+			prc['firstname'] = sessionStorage.get( "firstname" );
+			prc['lastname'] = sessionStorage.get( "lastname" );
+			prc['username'] = sessionStorage.get( "username" );
+		} else {
+			relocate("login.index");
 		}
-		
 	}
 
 }
