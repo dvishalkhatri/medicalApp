@@ -4,14 +4,20 @@
 component {
 
 	property name="sessionStorage" inject="sessionStorage@cbstorages";
-	property name="loginService" inject="loginService";
+	property name="loginService"   inject="loginService";
+	property name="messagebox"     inject="messagebox@cbmessagebox";
 
+	/* function preHandler( event, rc, prc ){
+		if (NOT sessionStorage.exists( "userId" )) {
+			relocate("login/index");
+		}
+	} */
 	/**
 	 * index
 	 */
 	function index( event, rc, prc ){
-		if (sessionStorage.exists( "userId" )) {
-			relocate("home/index");
+		if ( sessionStorage.exists( "userId" ) ) {
+			relocate( "home/index" );
 		} else {
 			event.setView( "login/index" ).setLayout( "login" );
 		}
@@ -22,10 +28,17 @@ component {
 	 */
 	function doLogin( event, rc, prc ){
 		var formData = event.getExcept( "event,fieldnames" );
-		if (sessionStorage.exists( "userId" )) {
-			relocate('home.index');
-		} else if (structKeyExists(formData, "email") AND len(trim(formData.email)) GT 0) {
-			var prc.checkLogin = loginService.checkLogin(formData);
+		if ( sessionStorage.exists( "userId" ) ) {
+			relocate( "home/index" );
+		} else if ( structKeyExists( formData, "email" ) AND len( trim( formData.email ) ) GT 0 ) {
+			var prc.checkLogin = loginService.checkLogin( formData );
+			if ( prc.checkLogin.success ) {
+				messagebox.success( prc.checkLogin.message );
+				relocate( "home/index" );
+			} else {
+				messagebox.error( prc.checkLogin.message );
+				relocate( "login/index" );
+			}
 		} else {
 			event.setView( "login/doLogin" );
 		}
@@ -36,12 +49,16 @@ component {
 	 */
 	function signUp( event, rc, prc ){
 		var formData = event.getExcept( "event,fieldnames" );
-		if (sessionStorage.exists( "userId" )) {
-			relocate('home.index');
-		} else if (structKeyExists(formData, "txtUserId") AND formData.txtUserId EQ 0) {
+		if ( sessionStorage.exists( "userId" ) ) {
+			relocate( "home.index" );
+		} else if ( structKeyExists( formData, "txtUserId" ) AND formData.txtUserId EQ 0 ) {
 			prc.register = loginService.register( formData );
-			if (prc.register.recordCount EQ 1) {
-				relocate('home/index');
+			if ( prc.register.success ) {
+				messagebox.success( prc.register.message );
+				relocate( "home/index" );
+			} else {
+				messagebox.error( prc.register.message );
+				relocate( "login/signUp" );
 			}
 		} else {
 			event.setView( "login/signUp" ).setLayout( "login" );
@@ -55,16 +72,15 @@ component {
 		event.setView( "login/forgot" ).setLayout( "login" );
 	}
 
-	
+
 	/**
 	 * logout
 	 */
 	function logout( event, rc, prc ){
-		if (sessionStorage.exists( "userId" )) {
+		if ( sessionStorage.exists( "userId" ) ) {
 			sessionStorage.clearAll();
-			relocate('login/index');
+			relocate( "login/index" );
 		}
 	}
-	
 
 }

@@ -13,7 +13,7 @@
  *
  * You can also use the HTTP executables: get(), post(), put(), path(), delete(), request()
  **/
-component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
+component extends="coldbox.system.testing.BaseTestCase" appMapping="/" {
 
 	/*********************************** LIFE CYCLE Methods ***********************************/
 
@@ -30,24 +30,19 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
 	/*********************************** BDD SUITES ***********************************/
 
 	function run(){
-
 		describe( "home Suite", function(){
-
-			beforeEach(function( currentSpec ){
+			beforeEach( function( currentSpec ){
 				// Setup as a new ColdBox request for this suite, VERY IMPORTANT. ELSE EVERYTHING LOOKS LIKE THE SAME REQUEST.
 				setup();
-			});
+			} );
 
 			it( "index", function(){
-                // Execute event or route via GET http method. Spice up accordingly
+				// Execute event or route via GET http method. Spice up accordingly
 				var event = get( "home.index" );
 				// expectations go here.
 				expect( false ).toBeTrue();
-			});
-
-
-		});
-
+			} );
+		} );
 	}
 
 }

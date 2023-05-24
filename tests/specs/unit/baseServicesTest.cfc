@@ -1,9 +1,9 @@
 /**
-* The base model test case will use the 'model' annotation as the instantiation path
-* and then create it, prepare it for mocking and then place it in the variables scope as 'model'. It is your
-* responsibility to update the model annotation instantiation path and init your model.
-*/
-component extends="coldbox.system.testing.BaseModelTest" model="models.baseServices"{
+ * The base model test case will use the 'model' annotation as the instantiation path
+ * and then create it, prepare it for mocking and then place it in the variables scope as 'model'. It is your
+ * responsibility to update the model annotation instantiation path and init your model.
+ */
+component extends="coldbox.system.testing.BaseModelTest" model="models.baseServices" {
 
 	/*********************************** LIFE CYCLE Methods ***********************************/
 
@@ -24,12 +24,8 @@ component extends="coldbox.system.testing.BaseModelTest" model="models.baseServi
 	/*********************************** BDD SUITES ***********************************/
 
 	function run(){
-
 		describe( "baseServices Suite", function(){
-
-
-		});
-
+		} );
 	}
 
 }

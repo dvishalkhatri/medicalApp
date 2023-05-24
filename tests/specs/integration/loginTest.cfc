@@ -13,7 +13,7 @@
  *
  * You can also use the HTTP executables: get(), post(), put(), path(), delete(), request()
  **/
-component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
+component extends="coldbox.system.testing.BaseTestCase" appMapping="/" {
 
 	/*********************************** LIFE CYCLE Methods ***********************************/
 
@@ -30,45 +30,40 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
 	/*********************************** BDD SUITES ***********************************/
 
 	function run(){
-
 		describe( "login Suite", function(){
-
-			beforeEach(function( currentSpec ){
+			beforeEach( function( currentSpec ){
 				// Setup as a new ColdBox request for this suite, VERY IMPORTANT. ELSE EVERYTHING LOOKS LIKE THE SAME REQUEST.
 				setup();
-			});
+			} );
 
 			it( "index", function(){
-                // Execute event or route via GET http method. Spice up accordingly
+				// Execute event or route via GET http method. Spice up accordingly
 				var event = get( "login.index" );
 				// expectations go here.
 				expect( false ).toBeTrue();
-			});
+			} );
 
 			it( "doLogin", function(){
-                // Execute event or route via GET http method. Spice up accordingly
+				// Execute event or route via GET http method. Spice up accordingly
 				var event = get( "login.doLogin" );
 				// expectations go here.
 				expect( false ).toBeTrue();
-			});
+			} );
 
 			it( "signUp", function(){
-                // Execute event or route via GET http method. Spice up accordingly
+				// Execute event or route via GET http method. Spice up accordingly
 				var event = get( "login.signUp" );
 				// expectations go here.
 				expect( false ).toBeTrue();
-			});
+			} );
 
 			it( "forgot", function(){
-                // Execute event or route via GET http method. Spice up accordingly
+				// Execute event or route via GET http method. Spice up accordingly
 				var event = get( "login.forgot" );
 				// expectations go here.
 				expect( false ).toBeTrue();
-			});
-
-
-		});
-
+			} );
+		} );
 	}
 
 }

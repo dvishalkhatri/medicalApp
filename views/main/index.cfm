@@ -1,3 +1,3 @@
 <cfoutput>
-    main cfm
+	main cfm
 </cfoutput>
