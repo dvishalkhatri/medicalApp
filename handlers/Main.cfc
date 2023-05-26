@@ -5,7 +5,7 @@ component extends="coldbox.system.EventHandler" {
 	 * Default Action
 	 */
 	function index( event, rc, prc ){
-		if ( NOT sessionStorage.exists( "userId" ) ) {
+		if ( sessionStorage.exists( "userId" ) ) {
 			relocate( "home/index" );
 		} else {
 			prc.welcomeMessage = "Welcome to ColdBox!";

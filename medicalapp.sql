@@ -33,7 +33,7 @@ CREATE TABLE `userdb` (
   `updatedBy` int DEFAULT NULL,
   `updatedOn` datetime DEFAULT NULL,
   PRIMARY KEY (`pkUserId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `userdb` (
 
 LOCK TABLES `userdb` WRITE;
 /*!40000 ALTER TABLE `userdb` DISABLE KEYS */;
-INSERT INTO `userdb` VALUES (1,'Vishal','Kumar Khatri','dvishalkhatri@gmail.com','$2a$12$VqPyMm725WX7AiYaMHn30u06so6qEF9QL8Wu4122E8vGOQTE6OPgK',1,'2023-05-15 23:24:46',NULL,NULL);
+INSERT INTO `userdb` VALUES (1,'Vishal','Kumar Khatri','dvishalkhatri@gmail.com','$2a$12$VqPyMm725WX7AiYaMHn30u06so6qEF9QL8Wu4122E8vGOQTE6OPgK',1,'2023-05-15 23:24:46',NULL,NULL),(2,'Vishal','Kumar','dvishalkhatri@outlook.com','$2a$12$PNSDv1ED2Oahcuj9j6i8suNIyaKBBYi/Dz1HZ.hVAGuAIuPXxpV62',1,'2023-05-25 01:15:01',NULL,NULL);
 /*!40000 ALTER TABLE `userdb` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-16  0:56:11
+-- Dump completed on 2023-05-25 23:36:56
