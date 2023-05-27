@@ -6,6 +6,7 @@ component {
 	property name="sessionStorage" inject="sessionStorage@cbstorages";
 	property name="loginService"   inject="loginService";
 	property name="messagebox"     inject="messagebox@cbmessagebox";
+	property name="cookieStorage"  inject="cookieStorage@cbstorages";
 
 	/* function preHandler( event, rc, prc ){
 		if (NOT sessionStorage.exists( "userId" )) {
@@ -33,6 +34,9 @@ component {
 		} else if ( structKeyExists( formData, "email" ) AND len( trim( formData.email ) ) GT 0 ) {
 			var prc.checkLogin = loginService.checkLogin( formData );
 			if ( prc.checkLogin.success ) {
+				if ( structKeyExists( formData, "txtKeepLoggedIn" ) ) {
+					var prc.checkRemember = loginService.setKeepLoggedIn( formData.email );
+				}
 				messagebox.success( prc.checkLogin.message );
 				relocate( "home/index" );
 			} else {
@@ -79,6 +83,7 @@ component {
 	function logout( event, rc, prc ){
 		if ( sessionStorage.exists( "userId" ) ) {
 			sessionStorage.clearAll();
+			cookieStorage.clearAll();
 			relocate( "login/index" );
 		}
 	}

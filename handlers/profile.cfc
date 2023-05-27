@@ -7,7 +7,7 @@ component extends="base" {
 	 * index
 	 */
 	function index( event, rc, prc ){
-		event.setView( "home/index" );
+		event.setView( "profile/index" );
 	}
 
 }

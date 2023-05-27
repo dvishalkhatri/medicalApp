@@ -5,6 +5,7 @@ component accessors="true" {
 
 	// Properties
 	property name="sessionStorage" inject="sessionStorage@cbstorages";
+	property name="cookieStorage"  inject="cookieStorage@cbstorages";
 	property name="BCrypt"         inject="BCrypt@BCrypt";
 	/**
 	 * Constructor

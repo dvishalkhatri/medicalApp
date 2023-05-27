@@ -138,7 +138,27 @@ component {
 		 *
 		 * }
 		 */
-		moduleSettings = {};
+		moduleSettings = {
+			// Cookie Storage settings
+			cbStorages : {
+				cookieStorage : {
+					// Matches the secure attribute of cfcookie, ssl only
+					secure 				: false,
+					// If yes, sets cookie as httponly so that it cannot be accessed using JavaScripts
+					httpOnly			: true,
+					// Applicable global cookie domain
+					domain 				: "",
+					// Use encryption of values
+					useEncryption 		: false,
+					// The unique seeding key to use: keep it secret, keep it safe
+					encryptionSeed 		: "CBStorages",
+					// The algorithm to use: https://cfdocs.org/encrypt
+					encryptionAlgorithm : "BLOWFISH",
+					// The encryption encoding to use
+					encryptionEncoding 	: "Base64"
+				}
+			}
+		};
 
 		/**
 		 * --------------------------------------------------------------------------

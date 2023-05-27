@@ -61,7 +61,7 @@ component extends="baseService" {
 				sessionStorage.set( "firstname", arguments.formData.txtFirstname );
 				sessionStorage.set( "lastname", arguments.formData.txtLastname );
 				loc.json[ "success" ] = true;
-				loc.json[ "message" ] = "User created Successful";
+				loc.json[ "message" ] = "User created Successful! Welcome #arguments.txtFirstname# #arguments.txtLastname#!";
 			}
 		}
 		return loc.json;
@@ -81,17 +81,17 @@ component extends="baseService" {
 			cfsqltype = "cf_sql_varchar"
 		);
 		loc.q.setSql( loc.sql );
-		loc.result = loc.q.execute().getResult();		
-		
+		loc.result = loc.q.execute().getResult();
+
 		if ( loc.result.recordCount EQ 1 ) {
 			loc.password = BCrypt.checkPassword( arguments.formData.password, loc.result.password );
-			if (loc.password) {
+			if ( loc.password ) {
 				sessionStorage.set( "userId", loc.result.pkUserId );
 				sessionStorage.set( "username", loc.result.email );
 				sessionStorage.set( "firstname", loc.result.firstName );
 				sessionStorage.set( "lastname", loc.result.lastName );
 				loc.json[ "success" ] = true;
-				loc.json[ "message" ] = "Login Successful";
+				loc.json[ "message" ] = "Login Successful! Welcome #loc.result.firstName# #loc.result.lastName#!";
 			} else {
 				loc.json[ "message" ] = "Incorrect Password!";
 			}
@@ -99,6 +99,62 @@ component extends="baseService" {
 			loc.json[ "message" ] = "Invalid Credentials!";
 		}
 		return loc.json;
+	}
+
+
+
+	/**
+	 * setKeepLoggedIn
+	 */
+	function setKeepLoggedIn( required string email ){
+		var loc  = {};
+		loc.json = { "success" : false, "message" : "" };
+		loc.q    = new query();
+		loc.sql  = "SELECT isPasswordChange, email FROM userdb WHERE email = :email";
+		loc.q.addParam(
+			name      = "email",
+			value     = "#arguments.email#",
+			cfsqltype = "cf_sql_varchar"
+		);
+		loc.q.setSql( loc.sql );
+		loc.result = loc.q.execute().getResult();
+		if ( loc.result.recordCount EQ 1 AND loc.result.isPasswordChange EQ 0 ) {
+			loc.encryptEmail = encrypt(
+				loc.result.email,
+				"BLOWFISH",
+				"BLOWFISH",
+				"Base64"
+			);
+			cookieStorage.set( "keeploggedIn", loc.encryptEmail, "never" );
+		}
+	}
+
+
+
+	/**
+	 * checkPasswordChange
+	 */
+	public query function checkPasswordChange(){
+		var loc          = {};
+		loc.getCookieVal = cookieStorage.get( "keeploggedIn" );
+		if ( len( loc.getCookieVal ) GT 0 ) {
+			loc.decryptEmail = decrypt(
+				loc.getCookieVal,
+				"BLOWFISH",
+				"BLOWFISH",
+				"Base64"
+			);
+			loc.q   = new query();
+			loc.sql = "SELECT * FROM userdb WHERE email = :email";
+			loc.q.addParam(
+				name      = "email",
+				value     = "#loc.decryptEmail#",
+				cfsqltype = "cf_sql_varchar"
+			);
+			loc.q.setSql( loc.sql );
+			loc.result = loc.q.execute().getResult();
+			return loc.result;
+		}
 	}
 
 }
