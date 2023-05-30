@@ -14,7 +14,7 @@
     "location":"",
     "name":"medicalapp",
     "scripts":{
-        "format": "cfformat run path=handlers/,interceptors/,models/,views/ overwrite=true cfm=true"
+        "format": "cfformat run path=handlers/,interceptors/,models/ overwrite=true"
     },
     "slug":"medicalapp",
     "version":"1.0.0"

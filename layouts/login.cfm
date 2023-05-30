@@ -15,12 +15,34 @@
 			</title>
 			<link rel="stylesheet" href="/includes/assets/css/main/app.css">
 			<link rel="stylesheet" href="/includes/assets/css/pages/auth.css">
+			<link rel="stylesheet" type="text/css" href="/includes/assets/extensions/toastify-js/src/toastify.css">
 			<link rel="shortcut icon" href="/includes/assets/images/logo/favicon.svg" type="image/x-icon">
 			<link rel="shortcut icon" href="/includes/assets/images/logo/favicon.png" type="image/png">
 			<script src="/includes/assets/extensions/jquery/jquery.min.js"></script>
 			<script src="/includes/assets/js/pswmeter.min.js"></script>
 			<script src="/includes/assets/js/extensions/jquery-validator/jquery.validate.min.js"></script>
 			<script src="/includes/assets/js/extensions/jquery-validator/additional-methods.min.js"></script>
+			<script src="/includes/assets/extensions/toastify-js/src/toastify.js"></script>
+			<script>
+				function toastSuccess(message) {
+					Toastify({
+						text: message,
+						duration: 3000,
+						close:true,
+						backgroundColor: "##4fbe87",
+					}).showToast();
+				}
+				function toastDanger(message) {
+					Toastify({
+						text: message,
+						duration: 3000,
+						close:true,
+						style: {
+							background: "linear-gradient(to right, ##FF4331, ##D31A50)",
+						}
+					}).showToast();
+				}
+			</script>
 		</head>
 
 		<body>

@@ -43,5 +43,14 @@
 				$( element ).siblings( ".form-control-icon-right" ).addClass( "is-valid" ).removeClass( "is-invalid" );
 			}
 		});
+		$( ".bi-eye, .bi-eye-slash" ).click(function() {
+			if($("#psw-input").attr("type") === "password") {
+				$("#psw-input").attr("type", "text");
+				$(this).removeClass( "bi-eye" ).addClass( "bi-eye-slash" );
+			} else {
+				$( "#psw-input" ).attr("type", "password");
+				$( this ).removeClass( "bi-eye-slash" ).addClass( "bi-eye" );
+			}
+		});
 	});
 </script>

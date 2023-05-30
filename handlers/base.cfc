@@ -10,11 +10,15 @@ component {
 	function preHandler( event, rc, prc, action, eventArguments ){
 		if ( cookieStorage.exists( "keeploggedIn" ) ) {
 			var checkPasswordChange = loginService.checkPasswordChange();
-			if ( checkPasswordChange.recordCount EQ 1 ) {
+			if ( checkPasswordChange.recordCount EQ 1 AND checkPasswordChange.isPasswordChange EQ 0 ) {
 				prc[ "userId" ]    = checkPasswordChange.pkUserId;
 				prc[ "firstname" ] = checkPasswordChange.firstName;
 				prc[ "lastname" ]  = checkPasswordChange.lastName;
 				prc[ "username" ]  = checkPasswordChange.email;
+				sessionStorage.set( "userId", checkPasswordChange.email );
+				sessionStorage.set( "username", arguments.formData.txtEmail );
+				sessionStorage.set( "firstname", checkPasswordChange.firstName );
+				sessionStorage.set( "lastname", checkPasswordChange.lastName );
 			}
 		} else if ( sessionStorage.exists( "userId" ) ) {
 			prc[ "userId" ]    = sessionStorage.get( "userId" );
@@ -22,6 +26,8 @@ component {
 			prc[ "lastname" ]  = sessionStorage.get( "lastname" );
 			prc[ "username" ]  = sessionStorage.get( "username" );
 		} else {
+			sessionStorage.clearAll();
+			cookieStorage.clearAll();
 			relocate( "login/index" );
 		}
 	}

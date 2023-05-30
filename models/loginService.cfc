@@ -86,12 +86,27 @@ component extends="baseService" {
 		if ( loc.result.recordCount EQ 1 ) {
 			loc.password = BCrypt.checkPassword( arguments.formData.password, loc.result.password );
 			if ( loc.password ) {
-				sessionStorage.set( "userId", loc.result.pkUserId );
+				/* if ( structKeyExists( arguments.formData, "txtKeepLoggedIn" ) ) {
+					loc.setKeepLoggedIn = setKeepLoggedIn( arguments.formData.email );
+				} */
+				loc.token             = addUserToken( loc.result.pkUserId );
+				loc.json[ "success" ] = true;
+				loc.json[ "data" ]    = loc.token;
+				/* loc.mail = new mail(
+					to = "#loc.result.email#",
+					from = "dvishalkhatri@yahoo.co.in",
+					subject = "OTP Verification for Medical App!",
+					body = "You OTP is #loc.token.pin#. You OTP would expire in 2 minutes.",
+					type = "html"
+				); */
+				/* loc.mail.send(); */
+				loc.json[ "message" ] = "OTP has been set to your mail! Please do check it!";
+				/* sessionStorage.set( "userId", loc.result.pkUserId );
 				sessionStorage.set( "username", loc.result.email );
 				sessionStorage.set( "firstname", loc.result.firstName );
 				sessionStorage.set( "lastname", loc.result.lastName );
 				loc.json[ "success" ] = true;
-				loc.json[ "message" ] = "Login Successful! Welcome #loc.result.firstName# #loc.result.lastName#!";
+				loc.json[ "message" ] = "Login Successful! Welcome #loc.result.firstName# #loc.result.lastName#!"; */
 			} else {
 				loc.json[ "message" ] = "Incorrect Password!";
 			}
@@ -129,8 +144,6 @@ component extends="baseService" {
 		}
 	}
 
-
-
 	/**
 	 * checkPasswordChange
 	 */
@@ -155,6 +168,87 @@ component extends="baseService" {
 			loc.result = loc.q.execute().getResult();
 			return loc.result;
 		}
+	}
+
+
+	/**
+	 * addUserToken
+	 */
+	public numeric function addUserToken( required numeric userId, numeric resendPin ){
+		var loc = {};
+		loc.q   = new query();
+		loc.sql = "INSERT INTO usertoken SET fkUserId = :fkUserId, token =:token, tokenPin =:tokenPin, userAgent = :userAgent, tokenExpired = :tokenExpired, tokenExpireTime =:tokenExpireTime";
+		loc.q.addParam(
+			name      = "fkUserId",
+			value     = "#arguments.userId#",
+			cfsqltype = "cf_sql_varchar"
+		);
+		loc.q.addParam(
+			name      = "userAgent",
+			value     = "#cgi.http_user_agent#",
+			cfsqltype = "cf_sql_varchar"
+		);
+		loc.q.addParam(
+			name      = "tokenExpired",
+			value     = "#createODBCDateTime( dateAdd( "d", 60, now() ) )#",
+			cfsqltype = "cf_sql_timestamp"
+		);
+		loc.q.addParam(
+			name      = "tokenExpireTime",
+			value     = "#createODBCDateTime( dateAdd( "m", 2, now() ) )#",
+			cfsqltype = "cf_sql_timestamp"
+		);
+		loc[ "pin" ] = randRange( 1000, 9999 );
+		loc.q.addParam(
+			name     = "tokenPin",
+			value    = "#loc.pin#",
+			cfqltype = "cfl_sql_smallint"
+		);
+		loc.q.addParam(
+			name     = "token",
+			value    = "#createUUID()#",
+			cfqltype = "cfl_sql_smallint"
+		);
+		loc.q.setSql( loc.sql );
+		loc.result = loc.q.execute().getPrefix();
+		return loc.pin;
+	}
+
+
+	/**
+	 * checkPin
+	 */
+	public struct function checkPin( required numeric pin, required string token ){
+		var loc  = {};
+		loc.json = { "success" : false, "message" : "" };
+		loc.q    = new query();
+		loc.sql  = "SELECT * FROM usertoken WHERE tokenPin =:tokenPin AND token =:token";
+		loc.q.addParam(
+			name     = "tokenPin",
+			value    = "#arguments.pin#",
+			cfqltype = "cfl_sql_smallint"
+		);
+		loc.q.addParam(
+			name     = "token",
+			value    = "#arguments.token#",
+			cfqltype = "cfl_sql_varchar"
+		);
+		loc.q.setSql( loc.sql );
+		loc.result = loc.q.execute().getResult();
+		if ( loc.result.recordCount EQ 1 ) {
+			if ( dateCompare( loc.result.tokenExpireTime, now() ) EQ -1 ) {
+				json[ "success" ] = true;
+				sessionStorage.set( "userId", loc.result.pkUserId );
+				sessionStorage.set( "username", loc.result.email );
+				sessionStorage.set( "firstname", loc.result.firstName );
+				sessionStorage.set( "lastname", loc.result.lastName );
+				loc.json[ "success" ] = true;
+				loc.json[ "message" ] = "Login Successful! Welcome #loc.result.firstName# #loc.result.lastName#!";
+			} else {
+				loc.json[ "message" ] = "PIN expired!";
+			}
+		}
+		return loc.json;
 	}
 
 }

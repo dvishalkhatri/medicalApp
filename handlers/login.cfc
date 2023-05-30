@@ -33,12 +33,10 @@ component {
 			relocate( "home/index" );
 		} else if ( structKeyExists( formData, "email" ) AND len( trim( formData.email ) ) GT 0 ) {
 			var prc.checkLogin = loginService.checkLogin( formData );
+			// writeDump(prc.checkLogin);abort;
 			if ( prc.checkLogin.success ) {
-				if ( structKeyExists( formData, "txtKeepLoggedIn" ) ) {
-					var prc.checkRemember = loginService.setKeepLoggedIn( formData.email );
-				}
 				messagebox.success( prc.checkLogin.message );
-				relocate( "home/index" );
+				relocate( event = "login/verifyPin", persistStruct = prc.checkLogin );
 			} else {
 				messagebox.error( prc.checkLogin.message );
 				relocate( "login/index" );
@@ -69,6 +67,38 @@ component {
 		}
 	}
 
+
+	/**
+	 * verifyPin
+	 */
+	function verifyPin( event, rc, prc ){
+		event.setView( "login/verifyPin" ).setLayout( "login" );
+	}
+
+
+	/**
+	 * resendPin
+	 */
+	function resendPin( event, rc, prc ){
+	}
+
+
+
+	/**
+	 * checkPin
+	 */
+	function checkPin( event, rc, prc ){
+		prc.checkPin = loginService.checkPin( rc.txtPin, rc.txtToken );
+		if ( prc.checkPin ) {
+			messagebox.success( prc.checkPin.message );
+			relocate( "home/index" );
+		} else {
+			messagebox.error( prc.checkPin.message );
+			relocate( "login/verifyPin" );
+		}
+	}
+
+
 	/**
 	 * forgot
 	 */
@@ -81,11 +111,9 @@ component {
 	 * logout
 	 */
 	function logout( event, rc, prc ){
-		if ( sessionStorage.exists( "userId" ) ) {
-			sessionStorage.clearAll();
-			cookieStorage.clearAll();
-			relocate( "login/index" );
-		}
+		sessionStorage.clearAll();
+		cookieStorage.clearAll();
+		relocate( "login/index" );
 	}
 
 }
