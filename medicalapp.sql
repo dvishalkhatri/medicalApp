@@ -28,6 +28,7 @@ CREATE TABLE `userdb` (
   `lastName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `isPasswordChange` bit(1) NOT NULL DEFAULT b'0',
   `createdBy` int DEFAULT NULL,
   `createdOn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedBy` int DEFAULT NULL,
@@ -42,7 +43,7 @@ CREATE TABLE `userdb` (
 
 LOCK TABLES `userdb` WRITE;
 /*!40000 ALTER TABLE `userdb` DISABLE KEYS */;
-INSERT INTO `userdb` VALUES (1,'Vishal','Kumar Khatri','dvishalkhatri@gmail.com','$2a$12$VqPyMm725WX7AiYaMHn30u06so6qEF9QL8Wu4122E8vGOQTE6OPgK',1,'2023-05-15 23:24:46',NULL,NULL),(2,'Vishal','Kumar','dvishalkhatri@outlook.com','$2a$12$PNSDv1ED2Oahcuj9j6i8suNIyaKBBYi/Dz1HZ.hVAGuAIuPXxpV62',1,'2023-05-25 01:15:01',NULL,NULL);
+INSERT INTO `userdb` VALUES (1,'Vishal','Kumar Khatri','dvishalkhatri@gmail.com','$2a$12$VqPyMm725WX7AiYaMHn30u06so6qEF9QL8Wu4122E8vGOQTE6OPgK',_binary '\0',1,'2023-05-15 23:24:46',NULL,NULL),(2,'Vishal','Kumar','dvishalkhatri@outlook.com','$2a$12$PNSDv1ED2Oahcuj9j6i8suNIyaKBBYi/Dz1HZ.hVAGuAIuPXxpV62',_binary '\0',1,'2023-05-25 01:15:01',NULL,NULL);
 /*!40000 ALTER TABLE `userdb` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-25 23:36:56
+-- Dump completed on 2023-05-30  8:51:09
