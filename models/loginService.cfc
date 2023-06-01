@@ -80,27 +80,11 @@ component extends="baseService" {
 		if ( loc.query.recordCount EQ 1 ) {
 			loc.password = BCrypt.checkPassword( arguments.formData.password, loc.query.password );
 			if ( loc.password ) {
-				/* if ( structKeyExists( arguments.formData, "txtKeepLoggedIn" ) ) {
-					loc.setKeepLoggedIn = setKeepLoggedIn( arguments.formData.email );
-				} */
 				loc.token             = addUserToken( loc.query.pkUserId );
 				loc.json[ "success" ] = true;
 				loc.json[ "data" ]    = loc.token;
-				/* loc.mail = new mail(
-					to = "#loc.result.email#",
-					from = "dvishalkhatri@yahoo.co.in",
-					subject = "OTP Verification for Medical App!",
-					body = "You OTP is #loc.token.pin#. You OTP would expire in 2 minutes.",
-					type = "html"
-				); */
-				/* loc.mail.send(); */
+
 				loc.json[ "message" ] = "OTP has been set to your mail! Please do check it!";
-				/* sessionStorage.set( "userId", loc.result.pkUserId );
-				sessionStorage.set( "username", loc.result.email );
-				sessionStorage.set( "firstname", loc.result.firstName );
-				sessionStorage.set( "lastname", loc.result.lastName );
-				loc.json[ "success" ] = true;
-				loc.json[ "message" ] = "Login Successful! Welcome #loc.result.firstName# #loc.result.lastName#!"; */
 			} else {
 				loc.json[ "message" ] = "Incorrect Password!";
 			}
