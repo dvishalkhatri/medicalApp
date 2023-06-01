@@ -3,18 +3,20 @@
         "BCrypt":"^3.1.0+4",
         "cbmessagebox":"^4.0.0+58",
         "cbstorages":"^3.0.1-snapshot",
-        "coldbox":"^6.8.2+6"
+        "coldbox":"^6.8.2+6",
+        "qb":"^9.2.3"
     },
     "installPaths":{
         "BCrypt":"modules/BCrypt/",
         "cbmessagebox":"modules/cbmessagebox/",
         "cbstorages":"modules/cbstorages/",
-        "coldbox":"coldbox/"
+        "coldbox":"coldbox/",
+        "qb":"modules/qb/"
     },
     "location":"",
     "name":"medicalapp",
     "scripts":{
-        "format": "cfformat run path=handlers/,interceptors/,models/ overwrite=true"
+        "format":"cfformat run path=handlers/,interceptors/,models/ overwrite=true"
     },
     "slug":"medicalapp",
     "version":"1.0.0"
