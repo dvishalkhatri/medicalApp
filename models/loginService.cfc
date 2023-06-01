@@ -71,25 +71,19 @@ component extends="baseService" {
 	 * checkLogin
 	 */
 	public struct function checkLogin( required struct formData ){
-		var loc  = {};
-		loc.json = { "success" : false, "message" : "" };
-		loc.q    = new query();
-		loc.sql  = "SELECT * FROM userdb WHERE email = :email";
-		loc.q.addParam(
-			name      = "email",
-			value     = "#arguments.formData.email#",
-			cfsqltype = "cf_sql_varchar"
-		);
-		loc.q.setSql( loc.sql );
-		loc.result = loc.q.execute().getResult();
-
-		if ( loc.result.recordCount EQ 1 ) {
-			loc.password = BCrypt.checkPassword( arguments.formData.password, loc.result.password );
+		var loc   = {};
+		loc.query = query.setReturnFormat( "query" )
+			.from( "userdb" )
+			.where( "email", "=", arguments.formData.email )
+			.get();
+			
+		if ( loc.query.recordCount EQ 1 ) {
+			loc.password = BCrypt.checkPassword( arguments.formData.password, loc.query.password );
 			if ( loc.password ) {
 				/* if ( structKeyExists( arguments.formData, "txtKeepLoggedIn" ) ) {
 					loc.setKeepLoggedIn = setKeepLoggedIn( arguments.formData.email );
 				} */
-				loc.token             = addUserToken( loc.result.pkUserId );
+				loc.token             = addUserToken( loc.query.pkUserId );
 				loc.json[ "success" ] = true;
 				loc.json[ "data" ]    = loc.token;
 				/* loc.mail = new mail(

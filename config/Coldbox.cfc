@@ -157,6 +157,9 @@ component {
 					// The encryption encoding to use
 					encryptionEncoding 	: "Base64"
 				}
+			},
+			qb = {
+				defaultGrammar = "MySQLGrammar@qb"
 			}
 		};
 

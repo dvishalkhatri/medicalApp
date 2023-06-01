@@ -15,8 +15,8 @@ component {
 				prc[ "firstname" ] = checkPasswordChange.firstName;
 				prc[ "lastname" ]  = checkPasswordChange.lastName;
 				prc[ "username" ]  = checkPasswordChange.email;
-				sessionStorage.set( "userId", checkPasswordChange.email );
-				sessionStorage.set( "username", arguments.formData.txtEmail );
+				sessionStorage.set( "userId", checkPasswordChange.pkUserId );
+				sessionStorage.set( "username", checkPasswordChange.email );
 				sessionStorage.set( "firstname", checkPasswordChange.firstName );
 				sessionStorage.set( "lastname", checkPasswordChange.lastName );
 			}
